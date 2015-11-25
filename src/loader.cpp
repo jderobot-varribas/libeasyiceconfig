@@ -61,9 +61,10 @@ loadIceConfig(std::string filename, Ice::PropertiesPtr properties){
 Ice::PropertiesPtr
 initializeProperties(Ice::StringSeq args, Ice::PropertiesPtr properties){
     properties->parseIceCommandLineOptions(args);
-    std::string iceconfig = properties->getProperty("Ice.Config");
-    if (!iceconfig.empty()){
-        loadIceConfig(iceconfig, properties);
+    std::string iceconfigs = properties->getProperty("Ice.Config");
+    if (!iceconfigs.empty()){
+        for (std::string iceconfig : std::split(iceconfigs, ","))
+            loadIceConfig(iceconfig, properties);
     }
     properties->parseCommandLineOptions("", args);
 
