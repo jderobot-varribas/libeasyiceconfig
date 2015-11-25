@@ -17,12 +17,12 @@
  *       Victor Arribas Raigadas <.varribas.urjc@gmail.com>
  */
 
-#ifndef EASYICE_LOADER_H
-#define EASYICE_LOADER_H
+#ifndef EASYICECONFIG_LOADER_H
+#define EASYICECONFIG_LOADER_H
 
 
 #include <string>
-#include <easyice/stdutils.hpp>
+#include <easyiceconfig/stdutils.hpp>
 
 #include <Ice/Communicator.h>
 #include <Ice/Properties.h>
@@ -30,10 +30,11 @@
 #include <Ice/LocalException.h>
 
 
-namespace easyice {
+namespace easyiceconfig {
 namespace loader {
 
 const std::string ENV_PATH_NAME = "ICE_CONFIG_PATH";
+
 
 std::string findConfigFile(const std::string& filename);
 
@@ -47,4 +48,4 @@ Ice::PropertiesPtr initializeProperties(Ice::StringSeq args,
 }}//NS
 
 
-#endif // EASYICE_LOADER_H
+#endif // EASYICECONFIG_LOADER_H

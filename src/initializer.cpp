@@ -17,15 +17,35 @@
  *       Victor Arribas Raigadas <.varribas.urjc@gmail.com>
  */
 
-#ifndef EASYICE_INJECTOR_H
-#define EASYICE_INJECTOR_H
+
+#include "easyiceconfig/initializer.hpp"
 
 
-namespace easyice{
-namespace injector{
+namespace easyiceconfig{
+namespace initializer{
 
+Ice::CommunicatorPtr
+initialize(int argc, char* argv[]){
+    Ice::StringSeq args(argv+1, argv+argc);
+    return initialize(args);
+}
+
+Ice::CommunicatorPtr
+initialize(Ice::StringSeq args){
+    Ice::InitializationData id;
+    id.properties = easyiceconfig::loader::initializeProperties(args);
+    return Ice::initialize(id);
+}
+
+Ice::PropertiesPtr
+createProperties(int argc, char* argv[]){
+    Ice::StringSeq args(argv+1, argv+argc);
+    return easyiceconfig::loader::initializeProperties(args);
+}
+
+Ice::PropertiesPtr
+createProperties(Ice::StringSeq args){
+    return easyiceconfig::loader::initializeProperties(args);
+}
 
 }}//NS
-
-
-#endif // EASYICE_INJECTOR_H

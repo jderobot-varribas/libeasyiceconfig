@@ -17,26 +17,15 @@
  *       Victor Arribas Raigadas <.varribas.urjc@gmail.com>
  */
 
+#ifndef EASYICECONFIG_INJECTOR_H
+#define EASYICECONFIG_INJECTOR_H
 
-#ifndef EASYICE_DEBUG_HPP
-#define EASYICE_DEBUG_HPP
 
-#include <iostream>
-#include <Ice/Properties.h>
+namespace easyiceconfig{
+namespace injector{
 
-namespace easyice{
-namespace debug{
-
-inline
-void printProperties(Ice::PropertiesPtr properties){
-    Ice::PropertyDict dict = properties->getPropertiesForPrefix("");
-    std::cout << "Properties [" << properties.get() << "] has " << dict.size() << " entries:" << std::endl;
-    std::map<std::string,std::string>::iterator at;
-    for (at=dict.begin(); at!=dict.end(); at++){
-        std::cout<<"\t"<<at->first<<": "<<at->second<<std::endl;
-    }
-}
 
 }}//NS
 
-#endif // DEBUG_HPP
+
+#endif // EASYICECONFIG_INJECTOR_H

@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8)
-project(easyice)
+project(easyiceconfig)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g")
 
@@ -9,17 +9,18 @@ set(Ice_LIBRARIES "-lIce -lIceUtil")
 include_directories(include)
 
 add_library(${PROJECT_NAME} SHARED
-    src/easyice.cpp
     src/loader.cpp
+    src/initializer.cpp
 
-    include/easyice/easyice.hpp
-    include/easyice/loader.hpp
-    include/easyice/injector.hpp
-    include/easyice/debug.hpp
+    include/easyiceconfig/EasyIce.hpp
+    include/easyiceconfig/hardcoredlocations.h
 
-    include/easyice/stdutils.hpp
+    include/easyiceconfig/loader.hpp
+    include/easyiceconfig/initializer.hpp
+    include/easyiceconfig/injector.hpp
+    include/easyiceconfig/debug.hpp
 
-    include/easyice/hardcoredlocations.h
+    include/easyiceconfig/stdutils.hpp
 )
 target_link_libraries(${PROJECT_NAME} ${Ice_LIBRARIES})
 set_target_properties(${PROJECT_NAME} PROPERTIES COMPILE_FLAGS "-std=c++0x")

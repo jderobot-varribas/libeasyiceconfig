@@ -17,34 +17,22 @@
  *       Victor Arribas Raigadas <.varribas.urjc@gmail.com>
  */
 
+#ifndef EASYICECONFIG_INITIALIZER_H
+#define EASYICECONFIG_INITIALIZER_H
 
-#include "easyice/easyice.hpp"
+#include <Ice/Initialize.h>
+#include <easyiceconfig/loader.hpp>
+
+namespace easyiceconfig {
+namespace initializer {
+
+Ice::CommunicatorPtr initialize(int argc, char* argv[]);
+Ice::CommunicatorPtr initialize(Ice::StringSeq args);
+
+Ice::PropertiesPtr createProperties(int argc, char* argv[]);
+Ice::PropertiesPtr createProperties(Ice::StringSeq args);
+
+}}//NS
 
 
-namespace EasyIce {
-
-Ice::CommunicatorPtr
-initialize(int argc, char* argv[]){
-    Ice::StringSeq args(argv+1, argv+argc);
-    return initialize(args);
-}
-
-Ice::CommunicatorPtr
-initialize(Ice::StringSeq args){
-    Ice::InitializationData id;
-    id.properties = easyice::loader::initializeProperties(args);
-    return Ice::initialize(id);
-}
-
-Ice::PropertiesPtr
-createProperties(int argc, char* argv[]){
-    Ice::StringSeq args(argv+1, argv+argc);
-    return easyice::loader::initializeProperties(args);
-}
-
-Ice::PropertiesPtr
-createProperties(Ice::StringSeq args){
-    return easyice::loader::initializeProperties(args);
-}
-
-}//NS
+#endif // EASYICECONFIG_INITIALIZER_H

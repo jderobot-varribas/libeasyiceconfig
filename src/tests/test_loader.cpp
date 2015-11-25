@@ -23,12 +23,12 @@
 
 
 #include <Ice/Ice.h>
-#include <easyice/easyice.hpp>
-#include <easyice/debug.hpp>
+#include <easyiceconfig/EasyIce.hpp>
+#include <easyiceconfig/debug.hpp>
 #include <iostream>
 
 
 int main(int argc, char* argv[]){
     Ice::PropertiesPtr props = EasyIce::createProperties(argc, argv);
-    easyice::debug::printProperties(props);
+    easyiceconfig::debug::printProperties(props);
 }

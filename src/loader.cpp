@@ -18,11 +18,11 @@
  */
 
 
-#include "easyice/loader.hpp"
-#include "easyice/hardcoredlocations.h"
+#include "easyiceconfig/loader.hpp"
+#include "easyiceconfig/hardcoredlocations.h"
 
 
-namespace easyice{
+namespace easyiceconfig{
 namespace loader{
 
 std::string

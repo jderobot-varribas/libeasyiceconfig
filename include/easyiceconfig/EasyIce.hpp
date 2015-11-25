@@ -17,21 +17,31 @@
  *       Victor Arribas Raigadas <.varribas.urjc@gmail.com>
  */
 
-#ifndef EASYICE_EASYICE_H
-#define EASYICE_EASYICE_H
+#ifndef EASYICECONFIG_EASYICE_H
+#define EASYICECONFIG_EASYICE_H
 
 #include <Ice/Ice.h>
-#include <easyice/loader.hpp>
+#include <easyiceconfig/initializer.hpp>
 
 namespace EasyIce{
 
-Ice::CommunicatorPtr initialize(int argc, char* argv[]);
-Ice::CommunicatorPtr initialize(Ice::StringSeq args);
+inline
+Ice::CommunicatorPtr initialize(int argc, char* argv[])
+    {return easyiceconfig::initializer::initialize(argc,argv);}
 
-Ice::PropertiesPtr createProperties(int argc, char* argv[]);
-Ice::PropertiesPtr createProperties(Ice::StringSeq args);
+inline
+Ice::CommunicatorPtr initialize(Ice::StringSeq args)
+    {return easyiceconfig::initializer::initialize(args);}
+
+inline
+Ice::PropertiesPtr createProperties(int argc, char* argv[])
+    {return easyiceconfig::initializer::createProperties(argc, argv);}
+
+inline
+Ice::PropertiesPtr createProperties(Ice::StringSeq args)
+    {return easyiceconfig::initializer::createProperties(args);}
 
 }//NS
 
 
-#endif // EASYICE_EASYICE_H
+#endif // EASYICECONFIG_EASYICE_H

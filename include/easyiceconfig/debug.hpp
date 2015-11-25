@@ -14,27 +14,29 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see http://www.gnu.org/licenses/.
  *  Authors :
- *      Victor Arribas Raigadas <.varribas.urjc@gmail.com>
- *
- * Thanks to:
- *      http://stackoverflow.com/questions/5607589/right-way-to-split-an-stdstring-into-a-vectorstring
- *      http://www.cplusplus.com/forum/general/1796/
+ *       Victor Arribas Raigadas <.varribas.urjc@gmail.com>
  */
 
 
-#include <easyiceconfig/stdutils.hpp>
+#ifndef EASYICECONFIG_DEBUG_HPP
+#define EASYICECONFIG_DEBUG_HPP
+
 #include <iostream>
+#include <Ice/Properties.h>
 
+namespace easyiceconfig{
+namespace debug{
 
-int main(){
-    std::string PATH = getEnvironmentVariable("PATH");
-    std::vector<std::string> paths = std::split(PATH, ":");
-    std::copy(paths.begin(), paths.end(), std::ostream_iterator<std::string>(std::cout, "\n"));
-
-    std::cout << std::fileexists("/bin/bash");
-    std::cout << std::fileexists("/dev/null");
-    std::cout << std::fileexists("/tmp/foo");
-    for (std::string path : paths){
-        std::cout << std::fileexists(path);
+inline
+void printProperties(Ice::PropertiesPtr properties){
+    Ice::PropertyDict dict = properties->getPropertiesForPrefix("");
+    std::cout << "Properties [" << properties.get() << "] has " << dict.size() << " entries:" << std::endl;
+    std::map<std::string,std::string>::iterator at;
+    for (at=dict.begin(); at!=dict.end(); at++){
+        std::cout<<"\t"<<at->first<<": "<<at->second<<std::endl;
     }
 }
+
+}}//NS
+
+#endif // EASYICECONFIG_DEBUG_HPP
