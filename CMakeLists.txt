@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8)
-project(easyiceconfig)
+project(easyice)
 
 
 #find_package(Ice)
@@ -8,13 +8,15 @@ set(Ice_LIBRARIES "-lIce -lIceUtil")
 include_directories(include)
 
 add_library(${PROJECT_NAME}
-#	src/
-    include/easyiceconfig/easyice.h
-    include/easyiceconfig/iceconfiglocator.h
-    include/easyiceconfig/iceconfiginjector.h
+    src/easyice.cpp
+    src/loader.cpp
+
+    include/easyice/easyice.hpp
+    include/easyice/loader.hpp
+    include/easyice/injector.hpp
 )
 target_link_libraries(${PROJECT_NAME} ${Ice_LIBRARIES})
-set_target_properties(${PROJECT_NAME} PROPERTIES LINKER_LANGUAGE CXX)
+set_target_properties(${PROJECT_NAME} PROPERTIES COMPILE_FLAGS "-std=c++0x")
 
 
 ## demo

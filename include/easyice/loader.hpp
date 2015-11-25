@@ -14,27 +14,37 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see http://www.gnu.org/licenses/.
  *  Authors :
- *      Victor Arribas Raigadas <.varribas.urjc@gmail.com>
- *
- * Thanks to:
- *      http://stackoverflow.com/questions/5607589/right-way-to-split-an-stdstring-into-a-vectorstring
- *      http://www.cplusplus.com/forum/general/1796/
+ *       Victor Arribas Raigadas <.varribas.urjc@gmail.com>
  */
 
+#ifndef EASYICE_LOADER_H
+#define EASYICE_LOADER_H
 
+
+#include <string>
 #include <easyice/stdutils.hpp>
-#include <iostream>
+
+#include <Ice/Communicator.h>
+#include <Ice/Properties.h>
+#include <Ice/Initialize.h>
+#include <Ice/LocalException.h>
 
 
-int main(){
-    std::string PATH = getEnvironmentVariable("PATH");
-    std::vector<std::string> paths = std::split(PATH, ":");
-    std::copy(paths.begin(), paths.end(), std::ostream_iterator<std::string>(std::cout, "\n"));
+namespace easyice {
+namespace loader {
 
-    std::cout << std::fileexists("/bin/bash");
-    std::cout << std::fileexists("/dev/null");
-    std::cout << std::fileexists("/tmp/foo");
-    for (std::string path : paths){
-        std::cout << std::fileexists(path);
-    }
-}
+const std::string ENV_PATH_NAME = "ICE_CONFIG_PATH";
+
+std::string findConfigFile(const std::string& filename);
+
+Ice::PropertiesPtr loadIceConfig(std::string filename,
+                            Ice::PropertiesPtr properties = Ice::createProperties());
+
+Ice::PropertiesPtr initializeProperties(Ice::StringSeq args,
+                            Ice::PropertiesPtr properties = Ice::createProperties());
+
+
+}}//NS
+
+
+#endif // EASYICE_LOADER_H

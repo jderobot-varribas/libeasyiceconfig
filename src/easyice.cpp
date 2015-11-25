@@ -14,27 +14,37 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see http://www.gnu.org/licenses/.
  *  Authors :
- *      Victor Arribas Raigadas <.varribas.urjc@gmail.com>
- *
- * Thanks to:
- *      http://stackoverflow.com/questions/5607589/right-way-to-split-an-stdstring-into-a-vectorstring
- *      http://www.cplusplus.com/forum/general/1796/
+ *       Victor Arribas Raigadas <.varribas.urjc@gmail.com>
  */
 
 
-#include <easyice/stdutils.hpp>
-#include <iostream>
+#include "easyice/easyice.hpp"
 
 
-int main(){
-    std::string PATH = getEnvironmentVariable("PATH");
-    std::vector<std::string> paths = std::split(PATH, ":");
-    std::copy(paths.begin(), paths.end(), std::ostream_iterator<std::string>(std::cout, "\n"));
+namespace EasyIce {
 
-    std::cout << std::fileexists("/bin/bash");
-    std::cout << std::fileexists("/dev/null");
-    std::cout << std::fileexists("/tmp/foo");
-    for (std::string path : paths){
-        std::cout << std::fileexists(path);
-    }
+Ice::CommunicatorPtr
+initialize(int argc, char* argv[]){
+    Ice::StringSeq args(argv+1, argv+argc);
+    return initialize(args);
 }
+
+Ice::CommunicatorPtr
+initialize(Ice::StringSeq args){
+    Ice::InitializationData id;
+    id.properties = easyice::loader::initializeProperties(args);
+    return Ice::initialize(id);
+}
+
+Ice::PropertiesPtr
+createProperties(int argc, char* argv[]){
+    Ice::StringSeq args(argv+1, argv+argc);
+    return easyice::loader::initializeProperties(args);
+}
+
+Ice::PropertiesPtr
+createProperties(Ice::StringSeq args){
+    return easyice::loader::initializeProperties(args);
+}
+
+}//NS

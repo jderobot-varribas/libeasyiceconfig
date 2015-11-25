@@ -17,15 +17,11 @@
  *       Victor Arribas Raigadas <.varribas.urjc@gmail.com>
  */
 
-#ifndef ICECONFIGLOCATOR_H
-#define ICECONFIGLOCATOR_H
 
+#ifndef HARDCOREDLOCATIONS_H
+#define HARDCOREDLOCATIONS_H
 
-namespace easyiceconfig{
-namespace iceconfiglocator{
+const char* HARDCORED_LOCATIONS = "/usr/local";
 
+#endif // HARDCOREDLOCATIONS_H
 
-}}//NS
-
-
-#endif // ICECONFIGLOCATOR_H

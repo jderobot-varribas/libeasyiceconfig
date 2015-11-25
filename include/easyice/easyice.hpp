@@ -17,15 +17,21 @@
  *       Victor Arribas Raigadas <.varribas.urjc@gmail.com>
  */
 
-#ifndef ICECONFIGINJECTOR_H
-#define ICECONFIGINJECTOR_H
+#ifndef EASYICE_EASYICE_H
+#define EASYICE_EASYICE_H
+
+#include <Ice/Ice.h>
+#include <easyice/loader.hpp>
+
+namespace EasyIce{
+
+Ice::CommunicatorPtr initialize(int argc, char* argv[]);
+Ice::CommunicatorPtr initialize(Ice::StringSeq args);
+
+Ice::PropertiesPtr createProperties(int argc, char* argv[]);
+Ice::PropertiesPtr createProperties(Ice::StringSeq args);
+
+}//NS
 
 
-namespace easyiceconfig{
-namespace iceconfiginjector{
-
-
-}}//NS
-
-
-#endif // ICECONFIGINJECTOR_H
+#endif // EASYICE_EASYICE_H
