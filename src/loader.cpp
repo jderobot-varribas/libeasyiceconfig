@@ -32,7 +32,9 @@ findConfigFile(const std::string& filename){
 
     std::string path_holders[] = {getEnvironmentVariable(ENV_PATH_NAME), HARDCORED_LOCATIONS};
     for (int i=0; i<2; i++){
+        if (path_holders[i].empty()) continue;
         for (std::string path : std::split(path_holders[i], ":")){
+            if (path.empty()) continue;
             std::string filepath(path+"/"+filename);
             if (std::fileexists(filepath))
                 return filepath;
@@ -46,11 +48,12 @@ Ice::PropertiesPtr
 loadIceConfig(std::string filename, Ice::PropertiesPtr properties){
     std::string filepath = findConfigFile(filename);
     if (filepath.empty()){
-        Ice::FileException e("loader.cpp", 49);
+        Ice::FileException e("easyice/loader.cpp", 51);
         e.path = filename;
         throw e;
     }
     properties->load(filepath);
+    //properties->setProperty("Ice.Config", filepath);
     return properties;
 }
 
