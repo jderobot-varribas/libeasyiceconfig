@@ -33,14 +33,38 @@
 namespace easyiceconfig {
 namespace loader {
 
+
 const std::string ENV_PATH_NAME = "ICE_CONFIG_PATH";
 
 
+/**
+ * @brief Find filename into all defined search paths.
+ * Order is:
+ * 1. current dir
+ * 2. $ICE_CONFIG_PATH
+ * 3. jderobot paths (*)
+ *
+ * @return empty if file was not found.
+ */
 std::string findConfigFile(const std::string& filename);
 
+/**
+ * @brief Loads Ice configuration from passed file.
+ *
+ * @return new Ice::Properties or passed one.
+ */
 Ice::PropertiesPtr loadIceConfig(std::string filename,
                             Ice::PropertiesPtr properties = Ice::createProperties());
 
+
+/**
+ * @brief Perform a full initialize of Ice::Properties just as Ice does it.
+ * @see Ice::createProperties
+ * Additionally, parses non `--Ice.A=B` command line arguments.
+ * Implies `loadIceConfig` + parseCommandLineOptions
+ *
+* @return new Ice::Properties or passed one.
+ */
 Ice::PropertiesPtr initializeProperties(Ice::StringSeq args,
                             Ice::PropertiesPtr properties = Ice::createProperties());
 

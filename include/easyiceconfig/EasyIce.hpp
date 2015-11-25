@@ -20,6 +20,15 @@
 #ifndef EASYICECONFIG_EASYICE_H
 #define EASYICECONFIG_EASYICE_H
 
+/**
+ * @mainpage  libEasyIceConfig
+ *            A library to tame Ice.Config
+ *
+ * @author    Victor Arribas Raigadas, .varribas.urjc@gmail.com
+ * @date      November 2015
+ * @version    0.9.0 (alpha)
+ */
+
 #include <Ice/Ice.h>
 #include <easyiceconfig/initializer.hpp>
 
