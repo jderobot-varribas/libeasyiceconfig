@@ -1,17 +1,19 @@
 cmake_minimum_required(VERSION 2.8)
 project(easyiceconfig)
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g")
-
+## FindIce
+# since Ice is located at standard location (/usr),
+# include_directories() and link_directories() can
+# be ommited. Only Ice_LIBRARIES must be defined, and
+# we can handle it just like pkg-config
 #find_package(Ice)
 set(Ice_LIBRARIES "-lIce -lIceUtil")
 
+
+### Project config
 include_directories(include)
 
-add_library(${PROJECT_NAME} SHARED
-    src/loader.cpp
-    src/initializer.cpp
-
+set(HEADERS
     include/easyiceconfig/EasyIce.hpp
     include/easyiceconfig/hardcoredlocations.h
 
@@ -22,8 +24,28 @@ add_library(${PROJECT_NAME} SHARED
 
     include/easyiceconfig/stdutils.hpp
 )
+
+set(SOURCES
+    src/loader.cpp
+    src/initializer.cpp
+)
+set_property(SOURCE src/loader.cpp PROPERTY COMPILE_FLAGS "-std=c++0x")
+
+## Adding shared library for common usage
+add_library(${PROJECT_NAME} SHARED ${SOURCES} ${HEADERS})
 target_link_libraries(${PROJECT_NAME} ${Ice_LIBRARIES})
-set_target_properties(${PROJECT_NAME} PROPERTIES COMPILE_FLAGS "-std=c++0x")
+
+## Adding static library for single .so configurations
+# since target is a shared library, -fPIC must be provided
+add_library(${PROJECT_NAME}-embedded STATIC ${SOURCES} ${HEADERS})
+target_link_libraries(${PROJECT_NAME}-embedded ${Ice_LIBRARIES})
+set_property(TARGET ${PROJECT_NAME}-embedded PROPERTY POSITION_INDEPENDENT_CODE 1)
+
+## Export library variables (like find_package)
+set_property(GLOBAL PROPERTY ${PROJECT_NAME}_FOUND 1)
+set_property(GLOBAL PROPERTY ${PROJECT_NAME}_INCLUDE_DIRS "${CMAKE_CURRENT_SOURCE_DIR}/include")
+set_property(GLOBAL PROPERTY ${PROJECT_NAME}_LIBRARY_DIRS "${CMAKE_CURRENT_BINARY_DIR}")
+set_property(GLOBAL PROPERTY ${PROJECT_NAME}_LIBRARIES "-l${PROJECT_NAME}")
 
 
 ## demo
