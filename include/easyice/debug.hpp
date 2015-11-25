@@ -18,10 +18,25 @@
  */
 
 
-#ifndef HARDCOREDLOCATIONS_H
-#define HARDCOREDLOCATIONS_H
+#ifndef EASYICE_DEBUG_HPP
+#define EASYICE_DEBUG_HPP
 
-const char* HARDCORED_LOCATIONS = "/usr/local/share/jderobot/conf:/usr/local/share/jderobot/gazebo/plugins/car:/usr/local/share/jderobot/gazebo/plugins/quadrotor";
+#include <iostream>
+#include <Ice/Properties.h>
 
-#endif // HARDCOREDLOCATIONS_H
+namespace easyice{
+namespace debug{
 
+inline
+void printProperties(Ice::PropertiesPtr properties){
+    Ice::PropertyDict dict = properties->getPropertiesForPrefix("");
+    std::cout << "Properties [" << properties.get() << "] has " << dict.size() << " entries:" << std::endl;
+    std::map<std::string,std::string>::iterator at;
+    for (at=dict.begin(); at!=dict.end(); at++){
+        std::cout<<"\t"<<at->first<<": "<<at->second<<std::endl;
+    }
+}
+
+}}//NS
+
+#endif // DEBUG_HPP

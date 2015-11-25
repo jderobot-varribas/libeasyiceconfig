@@ -40,6 +40,7 @@ std::string getEnvironmentVariable(std::string var){
 #include <boost/algorithm/string/classification.hpp>
 
 namespace std {
+inline
 vector<string> split(string str, string del){
 	vector<string> vstrings;
 	boost::split(vstrings, str, boost::is_any_of(del));

@@ -14,14 +14,21 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see http://www.gnu.org/licenses/.
  *  Authors :
- *       Victor Arribas Raigadas <.varribas.urjc@gmail.com>
+ *      Victor Arribas Raigadas <.varribas.urjc@gmail.com>
+ *
+ * Thanks to:
+ *      http://stackoverflow.com/questions/5607589/right-way-to-split-an-stdstring-into-a-vectorstring
+ *      http://www.cplusplus.com/forum/general/1796/
  */
 
 
-#ifndef HARDCOREDLOCATIONS_H
-#define HARDCOREDLOCATIONS_H
+#include <Ice/Ice.h>
+#include <easyice/easyice.hpp>
+#include <easyice/debug.hpp>
+#include <iostream>
 
-const char* HARDCORED_LOCATIONS = "/usr/local/share/jderobot/conf:/usr/local/share/jderobot/gazebo/plugins/car:/usr/local/share/jderobot/gazebo/plugins/quadrotor";
 
-#endif // HARDCOREDLOCATIONS_H
-
+int main(int argc, char* argv[]){
+    Ice::PropertiesPtr props = EasyIce::createProperties(argc, argv);
+    easyice::debug::printProperties(props);
+}

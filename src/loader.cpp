@@ -34,17 +34,19 @@ findConfigFile(const std::string& filename){
     for (int i=0; i<2; i++){
         for (std::string path : std::split(path_holders[i], ":")){
             std::string filepath(path+"/"+filename);
-            if (std::fileexists(filename))
+            if (std::fileexists(filepath))
                 return filepath;
         }
     }
+
+    return "";
 }
 
 Ice::PropertiesPtr
 loadIceConfig(std::string filename, Ice::PropertiesPtr properties){
     std::string filepath = findConfigFile(filename);
     if (filepath.empty()){
-        Ice::FileException e("IceConfig file could not be found.", 35);
+        Ice::FileException e("loader.cpp", 49);
         e.path = filename;
         throw e;
     }
