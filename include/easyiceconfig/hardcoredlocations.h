@@ -21,7 +21,17 @@
 #ifndef HARDCOREDLOCATIONS_H
 #define HARDCOREDLOCATIONS_H
 
-const char* HARDCORED_LOCATIONS = "/usr/local/share/jderobot/conf:/usr/local/share/jderobot/gazebo/plugins/car:/usr/local/share/jderobot/gazebo/plugins/quadrotor";
+const char* HARDCORED_LOCATIONS =
+"/usr/local/share/jderobot/conf\
+:/usr/local/share/jderobot/gazebo/plugins/car\
+:/usr/local/share/jderobot/gazebo/plugins/flyingKinect\
+:/usr/local/share/jderobot/gazebo/plugins/kinect\
+:/usr/local/share/jderobot/gazebo/plugins/nao\
+:/usr/local/share/jderobot/gazebo/plugins/pioneer\
+:/usr/local/share/jderobot/gazebo/plugins/quadrotor\
+:/usr/local/share/jderobot/gazebo/plugins/turtlebot\
+";
+
 
 #endif // HARDCOREDLOCATIONS_H
 
