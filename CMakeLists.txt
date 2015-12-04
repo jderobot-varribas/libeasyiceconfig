@@ -14,7 +14,7 @@ list(APPEND Ice_LIBRARIES Ice IceUtil)
 include_directories(include)
 
 set(HEADERS
-    include/easyiceconfig/EasyIce.hpp
+    include/easyiceconfig/EasyIce.h
     include/easyiceconfig/hardcoredlocations.h
 
     include/easyiceconfig/loader.hpp
