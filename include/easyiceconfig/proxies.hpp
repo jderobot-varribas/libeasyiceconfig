@@ -29,7 +29,7 @@ namespace proxies{
 
 template<typename T>
 T
-createProxy(const Ice::CommunicatorPtr &ic, const std::string &proxyStr, bool stringIsAlreadyProxy){
+createProxy(const Ice::CommunicatorPtr &ic, const std::string proxyStr, bool stringIsAlreadyProxy){
     Ice::ObjectPrx base;
 
     if (stringIsAlreadyProxy){
