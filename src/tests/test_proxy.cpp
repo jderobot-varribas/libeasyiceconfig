@@ -21,6 +21,7 @@
 #include <Ice/Ice.h>
 #include <easyiceconfig/EasyIce.h>
 #include <easyiceconfig/proxies.hpp>
+#include <easyiceconfig/EasyProxy.h>
 #include <easyiceconfig/debug.hpp>
 #include <iostream>
 
@@ -33,6 +34,8 @@ int main(int argc, char* argv[]){
     Ice::ObjectPtr obj = new IceMX::Metrics();
     Ice::ObjectAdapterPtr adapter = ic->createObjectAdapter("Test.Adapter");
     adapter->add(obj, ic->stringToIdentity("metric"));
+
+    std::cout<<"\n### EXAMPLE with easyiceconfig::proxies::createProxy() ###"<<std::endl;
 
     /// Exception due empty proxy
     try{
@@ -56,6 +59,15 @@ int main(int argc, char* argv[]){
     std::cout << "Gathering some info" << std::endl;
     std::cout << pxr->ice_id() << std::endl;
     std::cout << pxr->ice_toString() << std::endl;
+
+
+    std::cout<<"\n### EXAMPLE with EasyIce::EasyProxy ###"<<std::endl;
+
+    EasyIce::EasyProxy<IceMX::MetricsPrx> proxy(ic, "bad endpoint definition", true);
+    if (proxy){
+        //do stuff
+    }else
+        std::cout<<proxy.exception()<<std::endl;
 
     ic->shutdown();
 }

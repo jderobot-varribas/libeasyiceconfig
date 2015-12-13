@@ -15,6 +15,7 @@ include_directories(include)
 
 set(HEADERS
     include/easyiceconfig/EasyIce.h
+    include/easyiceconfig/EasyProxy.h
     include/easyiceconfig/hardcoredlocations.h
 
     include/easyiceconfig/loader.hpp
