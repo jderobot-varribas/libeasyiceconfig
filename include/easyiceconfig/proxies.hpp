@@ -39,7 +39,7 @@ createProxy(const Ice::CommunicatorPtr &ic, const std::string proxyStr, bool str
     }
 
     if (0 == base){
-        throw Ice::ProxyParseException("easyiceconfig/proxy.hpp", 42, "Proxy arguments unmeet: passed configuration is empty.");
+        throw Ice::ProxyParseException("easyiceconfig/proxy.hpp", 42, "Proxy arguments unmet: passed configuration is empty.");
     }
 
     // unsafe (try-catch) to maintain original Exceptions
