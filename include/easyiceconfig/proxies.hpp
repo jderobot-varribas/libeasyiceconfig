@@ -27,8 +27,13 @@
 namespace easyiceconfig {
 namespace proxies{
 
-template<typename T>
-T
+
+template<typename Prx>
+/**
+ * @brief A proxy creator that raise any error/fail as exception
+ * @return a valid proxy
+ */
+Prx
 createProxy(const Ice::CommunicatorPtr &ic, const std::string proxyStr, bool stringIsAlreadyProxy){
     Ice::ObjectPrx base;
 
@@ -39,16 +44,19 @@ createProxy(const Ice::CommunicatorPtr &ic, const std::string proxyStr, bool str
     }
 
     if (0 == base){
-        throw Ice::ProxyParseException("easyiceconfig/proxy.hpp", 42, "Proxy arguments unmet: passed configuration is empty.");
+        throw Ice::ProxyParseException("easyiceconfig/proxy.hpp", 47, "Proxy arguments unmet: passed configuration is empty.");
     }
 
     // unsafe (try-catch) to maintain original Exceptions
-    T proxy = T::checkedCast(base);
+    Prx proxy = Prx::checkedCast(base);
 
     return proxy;
 }
 
 
+
+
+template<typename Prx>
 /**
  * EasyProxy simplifies Ice Proxy creation and exception managenemt.
  * It handles exceptions to provide a simple if scoped logic.
@@ -62,7 +70,6 @@ createProxy(const Ice::CommunicatorPtr &ic, const std::string proxyStr, bool str
  *     std::cout<<proxy.exception()
  *
  */
-template<typename Prx>
 class EasyProxy {
 public:
     EasyProxy(const Ice::CommunicatorPtr &ic, const std::string proxyStr, bool stringIsAlreadyProxy){
@@ -93,6 +100,7 @@ public:
     }
 
     Ice::Exception& exception(){
+        assert(ex != 0);
         return *ex;
     }
 
