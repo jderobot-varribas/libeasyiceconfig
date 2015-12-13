@@ -48,6 +48,61 @@ createProxy(const Ice::CommunicatorPtr &ic, const std::string proxyStr, bool str
     return proxy;
 }
 
+
+/**
+ * EasyProxy simplifies Ice Proxy creation and exception managenemt.
+ * It handles exceptions to provide a simple if scoped logic.
+ * On error, original exception is retained allowing printing and throwing.
+ *
+ * Usage:
+ *   EasyProxy<ClassPrx> proxy(ic,"X.Proxy", false)
+ *   if (proxy)
+ *     // do stuff
+ *   else
+ *     std::cout<<proxy.exception()
+ *
+ */
+template<typename Prx>
+class EasyProxy {
+public:
+    EasyProxy(const Ice::CommunicatorPtr &ic, const std::string proxyStr, bool stringIsAlreadyProxy){
+        try {
+            proxy = easyiceconfig::proxies::createProxy<Prx>(ic, proxyStr, stringIsAlreadyProxy);
+        }catch (Ice::Exception& e){
+            ex = e.ice_clone();
+        }
+    }
+
+    virtual ~EasyProxy(){
+        if (ex){
+            delete ex;
+            ex = 0;
+        }
+    }
+
+    operator bool (){
+        return proxy != 0;
+    }
+
+    /**
+     * key operator to make class transparent by implement "proxy pattern"
+     * @return exactly same as templated class
+     */
+    typename Prx::element_type* operator-> () const{
+        return proxy.operator->();
+    }
+
+    Ice::Exception& exception(){
+        return *ex;
+    }
+
+
+protected:
+    Prx proxy;
+    Ice::Exception *ex;
+
+};
+
 }} //NS
 
 #endif // EASYICECONFIG_PROXIES__HPP
