@@ -23,6 +23,7 @@
 #include <Ice/Communicator.h>
 #include <Ice/Ice.h>
 #include <IceUtil/IceUtil.h>
+#include <boost/shared_ptr.hpp>
 
 namespace easyiceconfig {
 namespace proxies{
@@ -72,19 +73,20 @@ template<typename Prx>
  */
 class EasyProxy {
 public:
+    /**
+     * Constructor to allow lazy initialization
+     */
+    EasyProxy(){}
+
     EasyProxy(const Ice::CommunicatorPtr &ic, const std::string proxyStr, bool stringIsAlreadyProxy){
         try {
             proxy = easyiceconfig::proxies::createProxy<Prx>(ic, proxyStr, stringIsAlreadyProxy);
         }catch (Ice::Exception& e){
-            ex = e.ice_clone();
+            ex = boost::shared_ptr<Ice::Exception>(e.ice_clone());
         }
     }
 
     virtual ~EasyProxy(){
-        if (ex){
-            delete ex;
-            ex = 0;
-        }
     }
 
     operator bool (){
@@ -99,6 +101,21 @@ public:
         return proxy.operator->();
     }
 
+    /**
+     * complements "proxy pattern" by allow direct assignment.
+     */
+    Prx& operator= (const Prx &prx){
+        proxy = prx;
+        return proxy;
+    }
+
+    EasyProxy<Prx>& operator= (const EasyProxy<Prx> &other){
+        proxy = other.proxy;
+        ex = other.ex;
+
+        return *this;
+    }
+
     Ice::Exception& exception(){
         assert(ex != 0);
         return *ex;
@@ -107,7 +124,7 @@ public:
 
 protected:
     Prx proxy;
-    Ice::Exception *ex;
+    boost::shared_ptr<Ice::Exception> ex;
 
 };
 

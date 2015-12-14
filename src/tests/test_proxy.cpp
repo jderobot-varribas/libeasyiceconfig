@@ -69,5 +69,13 @@ int main(int argc, char* argv[]){
     }else
         std::cout<<proxy.exception()<<std::endl;
 
+
+    // copying
+    EasyIce::EasyProxy<IceMX::MetricsPrx> p2;
+    p2 = EasyIce::EasyProxy<IceMX::MetricsPrx>(ic, "bad endpoint definition", true);
+    try{
+    p2 = EasyIce::createProxy<IceMX::MetricsPrx>(ic, "bad endpoint definition", true);
+    }catch(Ice::Exception){}
+
     ic->shutdown();
 }

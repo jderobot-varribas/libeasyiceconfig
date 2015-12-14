@@ -28,11 +28,11 @@ namespace EasyIce{
 /// http://en.cppreference.com/w/cpp/language/using_declaration
 /// Option 1
 ///   just add this element to current namespace
-using easyiceconfig::proxies::EasyProxy;
+//using easyiceconfig::proxies::EasyProxy;
 
 /// Option 2 (fallback)
 ///   import whole namespace in current one
-//using namespace easyiceconfig::proxies;
+using namespace easyiceconfig::proxies;
 
 
 }//NS
