@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 1997-2015 JDE Developers Team
+ *  Copyright (C) 2015-2016 JDE Developers Team
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -20,10 +20,24 @@
 #ifndef EASYICECONFIG_INJECTOR_H
 #define EASYICECONFIG_INJECTOR_H
 
+#include <string>
+
+#if 0 //__cplusplus >= 201103L
+#include <regex>
+#else
+#include <boost/regex.hpp>
+#endif
+
+#include <Ice/Properties.h>
 
 namespace easyiceconfig{
 namespace injector{
 
+std::string changePort(std::string endpoint, int port);
+std::string changePort(std::string endpoint, std::string port);
+
+void injectPort(Ice::PropertiesPtr, std::string attr, int port);
+void injectPort(Ice::PropertiesPtr, std::string attr, std::string port);
 
 }}//NS
 
