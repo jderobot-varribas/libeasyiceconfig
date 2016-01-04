@@ -18,7 +18,10 @@ set(binname ${PROJECT_NAME})
 # You can use use_package for:
 #   * JdeRobot libraries
 #   * standard find_package() libraries
+set(NOTFOUND_IS_ERROR 1)
 use_package(ZeroCIce)
+find_package(Boost REQUIRED COMPONENTS regex)
+use_package(Boost)
 
 ## custom dependencies
 include_directories(
@@ -26,7 +29,6 @@ include_directories(
 link_directories(
 )
 list(APPEND LIBRARIES
-    boost_regex
 )
 
 
