@@ -1,3 +1,7 @@
+#  Copyright (C) 2015 JDE Developers Team
+#  Authors:
+#    Victor Arribas <v.arribas.urjc@gmail.com>
+
 cmake_minimum_required(VERSION 2.8)
 project(easyiceconfig)
 
