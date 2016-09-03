@@ -4,6 +4,8 @@
 
 cmake_minimum_required(VERSION 2.8)
 project(easyiceconfig)
+set(PROJECT_DESCRIPTION "A library to tame Ice.Config")
+set(PROJET_VERSION 0.9.3-1)
 
 ## FindIce
 # since Ice is located at standard location (/usr),
@@ -71,12 +73,5 @@ add_executable(test_proxy src/tests/test_proxy.cpp)
 target_link_libraries(test_proxy ${PROJECT_NAME} ${Ice_LIBRARIES} pthread)
 
 
-### Install
-install(TARGETS ${PROJECT_NAME}
-    DESTINATION ${CMAKE_INSTALL_PREFIX}/lib/jderobot
-    COMPONENT core
-)
-install(DIRECTORY include/
-    DESTINATION ${CMAKE_INSTALL_PREFIX}/include
-    COMPONENT core
-)
+include(install_it.cmake)
+include(cpack_it.cmake)
